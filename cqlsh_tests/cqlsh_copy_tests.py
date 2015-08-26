@@ -185,8 +185,8 @@ class CqlshCopyTest(Tester):
             )""")
 
         insert_statement = self.session.prepare("INSERT INTO testlist (a, b) VALUES (?, ?)")
-        args = [(i, random_list(gen=uuid4)) for i in range(1000)]
-        execute_concurrent_with_args(self.session, insert_statement, args)
+        args = [(i, random_list(gen=uuid4)) for i in range(10000)]
+        execute_concurrent_with_args(self.session, insert_statement, args, concurrency=50)
 
         results = list(self.session.execute("SELECT * FROM testlist"))
 
@@ -212,8 +212,8 @@ class CqlshCopyTest(Tester):
             )""")
 
         insert_statement = self.session.prepare("INSERT INTO testtuple (a, b) VALUES (?, ?)")
-        args = [(i, random_list(gen=uuid4, n=3)) for i in range(1000)]
-        execute_concurrent_with_args(self.session, insert_statement, args)
+        args = [(i, random_list(gen=uuid4, n=3)) for i in range(10000)]
+        execute_concurrent_with_args(self.session, insert_statement, args, concurrency=50)
 
         results = list(self.session.execute("SELECT * FROM testtuple"))
 
@@ -240,8 +240,8 @@ class CqlshCopyTest(Tester):
                 a int primary key
             )""")
         insert_statement = self.session.prepare("INSERT INTO testdelimiter (a) VALUES (?)")
-        args = [(i,) for i in range(1000)]
-        execute_concurrent_with_args(self.session, insert_statement, args)
+        args = [(i,) for i in range(10000)]
+        execute_concurrent_with_args(self.session, insert_statement, args, concurrency=50)
 
         results = list(self.session.execute("SELECT * FROM testdelimiter"))
 
@@ -761,8 +761,8 @@ class CqlshCopyTest(Tester):
             )""")
 
         insert_statement = self.session.prepare("INSERT INTO testcopyto (a, b, c, d) VALUES (?, ?, ?, ?)")
-        args = [(i, str(i), float(i) + 0.5, uuid4()) for i in range(1000)]
-        execute_concurrent_with_args(self.session, insert_statement, args)
+        args = [(i, str(i), float(i) + 0.5, uuid4()) for i in range(10000)]
+        execute_concurrent_with_args(self.session, insert_statement, args, concurrency=50)
 
         results = list(self.session.execute("SELECT * FROM testcopyto"))
 
@@ -794,8 +794,8 @@ class CqlshCopyTest(Tester):
             )""")
 
         insert_statement = self.session.prepare("INSERT INTO testcopyto (a, b, c, d) VALUES (?, ?, ?, ?)")
-        args = [(i, str(i), float(i) + 0.5, uuid4()) for i in range(1000)]
-        execute_concurrent_with_args(self.session, insert_statement, args)
+        args = [(i, str(i), float(i) + 0.5, uuid4()) for i in range(10000)]
+        execute_concurrent_with_args(self.session, insert_statement, args, concurrency=50)
 
         results = list(self.session.execute("SELECT * FROM testcopyto"))
 
