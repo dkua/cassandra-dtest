@@ -48,8 +48,8 @@ class CqlshCopyTest(Tester):
 
     def prepare(self):
         if not self.cluster.nodelist():
-            self.cluster.populate(1).start(wait_for_binary_proto=True)
-        self.node1, = self.cluster.nodelist()
+            self.cluster.populate(3).start(wait_for_binary_proto=True)
+        self.node1 = self.cluster.nodelist()[1]
         self.session = self.patient_cql_connection(self.node1)
 
         self.session.execute('DROP KEYSPACE IF EXISTS ks')
